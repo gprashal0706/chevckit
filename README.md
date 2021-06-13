@@ -1,1 +1,1 @@
-# chevckit
+# checkit
