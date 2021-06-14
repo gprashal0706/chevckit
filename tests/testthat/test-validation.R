@@ -23,7 +23,7 @@ test_that("cross validation works", {
                ymd("2019-10-09") + minutes(1)*0:(1441*2-1))
   
   # check two weeks of half-hourly data with two day jumps
-  dts <- ymd("2019-10-01") + minutes(30)*0:(1441*14-1)
+  dts <- ymd("2019-10-01") + minutes(1)*0:(1441*14-1)
   cv_folds <- cv_ts_folds(dts, ymd("2019-01-07"), 2, 3, 2)
   expect_equal(dts[cv_folds[[1]][["train"]]],
                ymd("2019-10-01") + minutes(1)*0:(1441*6-1))
