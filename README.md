@@ -32,11 +32,11 @@ Here is an example of how I produced the forecasts for the final round
 of the competition.
 
 ``` r
-library(podEnergyComp)
+library(pod-energy-comp-denmark)
 library(tidyverse)
 library(lubridate)
 
-fcst_start_date <- ymd("2020-07-03")
+fcst_start_date <- ymd("2019-12-26")
 
 # predict PV and demand
 demand.data <- load_demand_data()
