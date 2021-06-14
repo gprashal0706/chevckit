@@ -32,7 +32,7 @@ Here is an example of how I produced the forecasts for the final round
 of the competition.
 
 ``` r
-library(pod-energy-comp-denmark)
+library(podenergycompdenmark)
 library(tidyverse)
 library(lubridate)
 
