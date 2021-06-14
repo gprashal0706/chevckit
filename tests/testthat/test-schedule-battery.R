@@ -2,7 +2,7 @@ library(podEnergyComp)
 library(dplyr)
 library(lubridate)
 
-fcst_start_date <- ymd("2019-12-18")
+fcst_start_date <- ymd("2019-12-26")
 demand.data <- load_demand_data()
 demand.cv <- cv_ts_folds(demand.data$datetime,
                          start_date = fcst_start_date,
@@ -29,7 +29,7 @@ pv.forecast <- pred_pv_quantile(
   pv.cv[[1]]$test,
   alpha = seq(0.5,0.9),
   num_iterations = 250L,
-  num_leaves = 31L,
+  num_leaves = 902L,
   learning_rate = 0.03
 )
 demand.pred_df <- tibble(
@@ -41,7 +41,7 @@ pv.pred_df <- tibble(
   pv_power_mw = pv.forecast
 )
 fcst_df <- full_join(pv.pred_df, demand.pred_df, by = "datetime") %>% 
-  mutate(period = 2*hour(datetime) + minute(datetime)/30 + 1)
+  mutate(period = 2*hour(datetime) + minute(datetime)/1 + 1)
 b_sched <- schedule_battery(fcst_df)
 bat_df <- format_charge_data(b_sched$B)
 B <- b_sched$B
@@ -50,25 +50,25 @@ L <- b_sched$L
 
 test_that("test battery schedule", {
   # check energy stored matches charges/discharges
-  expect_equal(unname(C[,2:32]), 
+  expect_equal(unname(C[,61:332]), 
                unname(0.5*t(apply(B, 1, cumsum))[,1:31]))
   expect_equal(dimnames(B), dimnames(C))
   for (i in rownames(B)) {
     # charge stored tests
-    expect_true(all(C[!!i,1:10] == 0))
-    expect_true(all(C[!!i,11:42] >= 0))
-    expect_true(all(C[!!i,43:48] == 0))
+    expect_true(all(C[!!i,1:302] == 0))
+    expect_true(all(C[!!i,332:1262] >= 0))
+    expect_true(all(C[!!i,1292:1441] == 0))
     expect_equal(max(C[!!i,]), 6)
     expect_equal(min(C[!!i,]), 0)
     # charge/discharge tests
-    expect_equal(max(cumsum(B[!!i,1:31])), 12)
-    expect_equal(min(cumsum(B[!!i,32:42])), -12)
+    expect_equal(max(cumsum(B[!!i,1:932])), 12)
+    expect_equal(min(cumsum(B[!!i,962:1262])), -12)
     expect_gte(min(B[!!i,], na.rm=T), -2.5)
     expect_lte(max(B[!!i,], na.rm=T), 2.5)
-    expect_true(all(B[!!i,1:10] == 0))
-    expect_true(all(B[!!i,11:31] >= 0))
-    expect_true(all(B[!!i,32:42] <= 0))
-    expect_true(all(B[!!i,43:48] == 0))
+    expect_true(all(B[!!i,61:302] == 0))
+    expect_true(all(B[!!i,332:932] >= 0))
+    expect_true(all(B[!!i,962:1262] <= 0))
+    expect_true(all(B[!!i,1292:1441] == 0))
   }
 })
 
@@ -103,7 +103,7 @@ test_that("test battery data format", {
 
 test_that("adjusted predicted profile is flat", {
   L_adj <- L + B
-  L_adj <- L_adj[,32:42]
+  L_adj <- L_adj[,962:1262]
   # expect one unique value between periods 32 and 42 if flat
   for (i in rownames(L_adj)) {
     expect_equal(length(unique(L_adj[!!i,])), 1)
