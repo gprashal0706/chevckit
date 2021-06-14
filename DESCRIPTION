@@ -1,0 +1,30 @@
+Package: podEnergyComp
+Type: Package
+Title: Battery Scheduling for Peak Demand Reduction
+Version: 0.0.1
+Authors@R: person("Cameron", "Roach", email = "camroach87@gmail.com",
+                  role = c("aut", "cre"))
+Description: Code used by team Cameron in Presumed Open Data Data Science Challenge.
+    This code schedules battery charging and discharging to maximise PV generation
+    storage and also the reduction of evening peak demand. This code produced the 
+    winning entry of the competition.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat
+RoxygenNote: 7.1.1
+Imports: 
+    magrittr,
+    dplyr (>= 1.0),
+    lubridate (>= 1.7),
+    purrr (>= 0.3),
+    readr (>= 1.4),
+    stringr (>= 1.4),
+    tidyselect (>= 1.1),
+    tidyr (>= 1.1),
+    tibble (>= 3.0),
+    lightgbm (>= 3.1),
+    rlang (>= 0.4)
+Depends: 
+    R (>= 2.10)

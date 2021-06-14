@@ -1,0 +1,5 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+\.github
+^data-raw$
+^README\.Rmd
