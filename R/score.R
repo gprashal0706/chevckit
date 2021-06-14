@@ -30,7 +30,7 @@ score_fcst_file <- function(file) {
       date = date(.data$datetime)
     )
   
-  actual_df <- podenergycompdenmark::pod %>% 
+  actual_df <- podEnergyComp::pod %>% 
     select(.data$datetime, .data$demand_mw, .data$pv_power_mw)
   
   charge_df <- charge_df %>% 
