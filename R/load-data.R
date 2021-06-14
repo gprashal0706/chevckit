@@ -93,7 +93,7 @@ add_features <- function(data) {
 #' @importFrom lubridate yday month
 #' @importFrom rlang .data
 load_pv_data <- function() {
-  pod-energy-comp-denmark::pod %>% 
+  podenergycompdenmark::pod %>% 
     select(-.data$demand_mw) %>% 
     add_lags(
       lags = list(
