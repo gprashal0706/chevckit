@@ -93,7 +93,7 @@ add_features <- function(data) {
 #' @importFrom lubridate yday month
 #' @importFrom rlang .data
 load_pv_data <- function() {
-  podenergycompdenmark::pod %>% 
+  podEnergyComp::pod %>% 
     select(-.data$demand_mw) %>% 
     add_lags(
       lags = list(
@@ -125,7 +125,7 @@ load_pv_data <- function() {
 #' @importFrom dplyr select mutate filter slice if_else between summarise ungroup
 #' @importFrom lubridate yday wday month ymd date
 #' @importFrom rlang .data
-#load_demand_data <- function() {pod-energy-comp-denmark::pod %>% 
+#load_demand_data <- function() {podEnergyComp::pod %>% 
    # select(-.data$pv_power_mw) %>% 
    # add_lags(
    #   lags = list(
