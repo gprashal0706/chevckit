@@ -25,6 +25,6 @@ Get cross validation folds for time series
 }
 \examples{
 library(lubridate)
-dts <- ymd("2020-01-01") + minutes(30)*0:(48*14-1)
-cv_folds <- cv_ts_folds(dts, ymd("2020-01-07"), 2, 3)
+dts <- ymd("2019-10-01") + minutes(1)*0:(1441*14-1)
+cv_folds <- cv_ts_folds(dts, ymd("2019-10-07"), 2, 3)
 }
