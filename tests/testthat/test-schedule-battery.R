@@ -51,7 +51,7 @@ L <- b_sched$L
 test_that("test battery schedule", {
   # check energy stored matches charges/discharges
   expect_equal(unname(C[,61:332]), 
-               unname(0.5*t(apply(B, 1, cumsum))[,1:31]))
+               unname(0.5*t(apply(B, 1, cumsum))[,1:932]))
   expect_equal(dimnames(B), dimnames(C))
   for (i in rownames(B)) {
     # charge stored tests
