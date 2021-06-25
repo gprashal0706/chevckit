@@ -169,12 +169,12 @@ load_pv_data <- function() {
 #'
 #' @param x (datetime) vector of datetime values.
 #' 
-#' @importFrom lubridate yday leap_year
-yday_ly_adj <- function(x) {
-  x_ly <- leap_year(x)
-  x <- yday(x)
-  x[x_ly & x == 60] <- 59.5                 # 29 Feb
-  x[x_ly & x > 60] <- x[x_ly & x > 60] - 1  # > 29 Feb
-  x
-}
+##' @importFrom lubridate yday leap_year
+#yday_ly_adj <- function(x) {
+  #$x_ly <- leap_year(x)
+ # x <- yday(x)
+ # x[x_ly & x == 60] <- 59.5                 # 29 Feb
+ # x[x_ly & x > 60] <- x[x_ly & x > 60] - 1  # > 29 Feb
+ # x
+#}
 
