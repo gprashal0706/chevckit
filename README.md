@@ -167,6 +167,28 @@ bat_df %>%
        colour = "",
        x = "Period",
        y = "Power (MW)")
+       
+  inner_join(fcst_df %>% 
+               rename(`PV (forecast)` = pv_power_mw ), 
+             by = "datetime") %>%
+  inner_join(PV.data %>% 
+               select(datetime, `PV (actual)` = pv_power_mw ),
+             by = "datetime") %>%
+  mutate(`PV reduction (actual)` = `PV (actual)` + charge_MW,
+         `PV reduction (forecast)` = `PV (forecast)` + charge_MW,
+         idx = row_number()) %>%
+  mutate(date = date(datetime)) %>% 
+  select(date, period, starts_with("PV")) %>%
+  pivot_longer(cols = -c(date, period)) %>%
+  ggplot(aes(x = period, y = value, colour = name)) +
+  geom_line() +
+  ylim(0, NA) +
+  facet_wrap(~date) +
+  labs(title = "Forecast and actual demand reduction",
+       colour = "",
+       x = "Period",
+       y = "PV (MW)")
+       
 ```
 
 ![](man/figures/README-plot-outcome-1.png)<!-- -->
