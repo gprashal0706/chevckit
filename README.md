@@ -173,3 +173,34 @@ bat_df %>%
 ```
 
 ![](man/figures/README-plot-outcome-1.png)<!-- -->
+
+Since the completion of the competition, the actual demand and PV data
+has now been released. We can compare how well our battery schedule
+reduces the peak reduction.
+
+``` r
+bat_df %>%
+ inner_join(fcst_df %>% 
+               rename(`PV (forecast)` = pv_power_mw), 
+             by = "datetime") %>%
+  inner_join(demand.data %>% 
+               select(datetime, `PV (actual)` = pv_power_mw),
+             by = "datetime") %>%
+  mutate(`PV reduction (actual)` = `pv_power_mw (actual)` + charge_MW,
+         `PV reduction (forecast)` = `pv_power_mw (forecast)` + charge_MW,
+         idx = row_number()) %>%
+  mutate(date = date(datetime)) %>% 
+  select(date, period, starts_with("PV")) %>%
+  pivot_longer(cols = -c(date, period)) %>%
+  ggplot(aes(x = period, y = value, colour = name)) +
+  geom_line() +
+  ylim(0, NA) +
+  facet_wrap(~date) +
+  labs(title = "Forecast and actual PV reduction",
+       colour = "",
+       x = "Period",
+       y = "Power (MW)")
+       
+  
+       
+```
