@@ -147,7 +147,7 @@ reduces the peak reduction.
 
 ``` r
 bat_df %>%
-  inner_join(fcst_df %>% 
+ inner_join(fcst_df %>% 
                rename(`Demand (forecast)` = demand_mw), 
              by = "datetime") %>%
   inner_join(demand.data %>% 
@@ -168,11 +168,13 @@ bat_df %>%
        x = "Period",
        y = "Power (MW)")
        
+   ``` r    
+  bat_df %>%    
   inner_join(fcst_df %>% 
-               rename(`PV (forecast)` = pv_power_mw ), 
+               rename(`PV (forecast)` = pv_power_mw), 
              by = "datetime") %>%
   inner_join(PV.data %>% 
-               select(datetime, `PV (actual)` = pv_power_mw ),
+               select(datetime, `PV (actual)` = pv_power_mw),
              by = "datetime") %>%
   mutate(`PV reduction (actual)` = `PV (actual)` + charge_MW,
          `PV reduction (forecast)` = `PV (forecast)` + charge_MW,
