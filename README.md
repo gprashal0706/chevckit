@@ -80,7 +80,7 @@ pv.pred_df <- tibble(
   pv_power_mw = pv.forecast
 )
 fcst_df <- full_join(pv.pred_df, demand.pred_df, by = "datetime") %>% 
-  mutate(period = hour*1(datetime) + minute(datetime)/60 + 1) %>% 
+  mutate(period = 1*hour(datetime) + minute(datetime)/60 + 1) %>% 
   arrange(datetime)
 
 # schedule battery
