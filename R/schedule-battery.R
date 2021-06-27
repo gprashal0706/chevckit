@@ -147,7 +147,7 @@ format_charge_data <- function(B) {
                  names_to = "period", 
                  values_to = "charge_MW") %>% 
     mutate(period = as.numeric(.data$period),
-           datetime = as_datetime(.data$date) + minutes(30*(.data$period-1))) %>% 
+           datetime = as_datetime(.data$date) + minutes(1*(.data$period-1))) %>% 
     arrange(.data$datetime) %>% 
     mutate(`_id` = row_number()) %>% 
     select(.data$`_id`, .data$datetime, .data$charge_MW)
