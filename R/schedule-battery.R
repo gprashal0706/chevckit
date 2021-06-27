@@ -152,3 +152,4 @@ format_charge_data <- function(B) {
     mutate(`_id` = row_number()) %>% 
     select(.data$`_id`, .data$datetime, .data$charge_MW)
 }
+#checking charging discharging of battery
