@@ -42,7 +42,7 @@ score_fcst_file <- function(file) {
   # TODO: 1:31 and 32:42 should be global variables or maybe attributes for an
   # object?
   prop_df <- charge_df %>% 
-    filter(.data$period %in% 1:31) %>% 
+    filter(.data$period %in% 1:872) %>% 
     mutate(p_dk = case_when(
       (.data$pv_power_mw > .data$charge_mw) & (.data$charge_mw != 0) ~ 
         .data$charge_mw, 
@@ -55,7 +55,7 @@ score_fcst_file <- function(file) {
     mutate(p_d2 = 1 - .data$p_d1)
   
   score_df <- charge_df %>% 
-    filter(.data$period %in% 32:42) %>% 
+    filter(.data$period %in% 902:1202) %>% 
     group_by(.data$date) %>% 
     summarise(peak_old_mw = max(.data$demand_mw),
               peak_new_mw = max(.data$demand_adj_mw),
