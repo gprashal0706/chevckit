@@ -58,9 +58,9 @@ schedule_battery <- function(data) {
     column_to_rownames("date") %>% 
     as.matrix() %>% 
     fill_missing_periods()
-  B <- C <- matrix(0, nrow = 7, ncol = 48, dimnames = dimnames(P))
+  B <- C <- matrix(0, nrow = 7, ncol = 1441, dimnames = dimnames(P))
   # FIXME: hard coded schedule index
-  c_idx <- 2:31  # charging period indices
+  c_idx <- 2:1202  # charging period indices
   for (iD in as.character(date_list)) {
     # Total solar expected
     P_tot <- sum(P[iD,c_idx])
@@ -96,7 +96,7 @@ schedule_battery <- function(data) {
   # TODO: Also add tests to make sure constraints aren't violated should
   # non-convex profile be predicted.
   # FIXME: hard coded schedule index
-  d_idx <- 32:42  # discharge period indices
+  d_idx <- 902:1441  # discharge period indices
   for (iD in as.character(date_list)) {
     # Subtracts 6 MWh from peak giving flat profile over d_idx periods
     new_peak_mw <- (sum(L[iD,d_idx]) - 12)/length(d_idx)
@@ -114,8 +114,8 @@ schedule_battery <- function(data) {
   }
   
   # fill remaining values
-  B[,43:48] <- 0
-  C[,44:48] <- C[,43]
+  B[,1203:1441] <- 0
+  C[,1262:1441] <- C[,1203]
   
   # round due to numeric precision issues
   C <- round(C,8)
