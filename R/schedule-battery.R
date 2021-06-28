@@ -29,12 +29,12 @@
 #' @importFrom rlang .data
 schedule_battery <- function(data) {
   fill_missing_periods <- function(x) {
-    missing_periods <- c(1:48)[!(1:48 %in% colnames(x))]
+    missing_periods <- c(1:1441)[!(1:1441 %in% colnames(x))]
     missing_periods <- as.character(missing_periods)
     x_na <- matrix(NA, nrow = nrow(x), ncol = length(missing_periods),
            dimnames = list(rownames(x), missing_periods))
     x <- cbind(x, x_na)
-    x <- x[,as.character(1:48)]
+    x <- x[,as.character(1:1441)]
     x
   }
   
