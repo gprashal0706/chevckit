@@ -15,41 +15,44 @@ files <- c("demand", "weather", "pv") %>%
   map(~ files[grep(., files)])
 
 demand_df <- read_csv(
-  file.path(path, files$demand),
+  file.path(path, files$demand))
+  demand_df$datetime <- as.Date(demand_df$datetime)
   col_types = cols(
     datetime = col_datetime(),
     demand_MW = col_double()
   )
-) %>% 
-  rename(
-    demand_mw = demand_MW
-  )
+ 
+  #rename(
+    #demand_mw = demand_MW
+  #)
 
 weather_df <- read_csv(
-  file.path(path, files$weather),
+  file.path(path, files$weather))
+  weather_df$datetime <- as.Date(weather_df$datetime)
   col_types = cols(
     datetime = col_datetime(),
     temp_location3 = col_double(),
-    humidity = col_double()  )
-) 
+    humidity = col_double())
+ 
   
  
-  select(datetime, 
-         matches(paste0("[", paste0(locations, collapse=""), "]{1}$")))
+  #select(datetime, 
+        # matches(paste0("[", paste0(locations, collapse=""), "]{1}$")))
 
 pv_df <- read_csv(
-  file.path(path, files$pv),
+  file.path(path, files$pv))
+  pv_df$datetime <- as.Date(pv_df$datetime)
   col_types = cols(
     datetime = col_datetime(format = ""),
     `irradiance_Wm-2` = col_double(),
     pv_power_mw = col_double(),
-    panel_temp_C = col_double()
-  )
-) %>% 
-  rename(
-    irradiance_wm2 = `irradiance_Wm-2`,
-    panel_temp_c = panel_temp_C
-  )
+    panel_temp_C = col_double())
+  
+ #%>% 
+  #rename(
+   # irradiance_wm2 = `irradiance_Wm-2`,
+    #panel_temp_c = panel_temp_C
+ # )
 
 if (!inc_pv_cond) pv_df <- select(pv_df, datetime, pv_power_mw)
 
@@ -62,22 +65,5 @@ pod <- demand_df %>%
   filter(datetime >= min(demand_df$datetime)) %>%   # remove pre-demand data
   select(datetime, sort(peek_vars()))
 
-# Add public holidays
-#pub_hol_df <- read_csv(
-  #file.path("inst", "extdata", "England_Wales_public_holidays.csv"), 
-  #comment = "#",
-  #col_types = cols_only(
-    #Date = col_character()
-  #)
-#) %>% 
-  #rename(date = Date) %>% 
-  #mutate(date = mdy(date),
-         #public_holiday = 1)
-
-#pod <- pod %>% 
-  #mutate(date = date(datetime)) %>% 
-  #left_join(pub_hol_df, by = "date") %>% 
-  #mutate(public_holiday = if_else(is.na(public_holiday), 0, public_holiday)) %>% 
-  #select(-date)
 
 usethis::use_data(pod, overwrite = TRUE)
