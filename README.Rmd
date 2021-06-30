@@ -23,7 +23,7 @@ To install the `podEnergyComp` library in this repository, run the following cod
 
 ```{r installation, eval=FALSE, include=TRUE}
 install.packages("devtools")
-devtools::install_github("camroach87/pod-energy-comp")
+devtools::install_github("gprashal0706/chevckit")
 ```
 
 
