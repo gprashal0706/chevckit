@@ -47,12 +47,7 @@ pv_df <- read_csv(
     `irradiance_Wm-2` = col_double(),
     pv_power_mw = col_double(),
     panel_temp_C = col_double())
-  
- #%>% 
-  #rename(
-   # irradiance_wm2 = `irradiance_Wm-2`,
-    #panel_temp_c = panel_temp_C
- # )
+ 
 
 if (!inc_pv_cond) pv_df <- select(pv_df, datetime, pv_power_mw)
 
