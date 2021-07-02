@@ -148,7 +148,7 @@ load_demand_data <- function() {
       .data$period %in% 902:1202,  # FIXME: Hard coded. Train with charging periods only
       date(.data$datetime) != ymd("2019-05-08"),  # outlier 0 demand
       date(.data$datetime) != ymd("2019-05-10"),  # outlier high demand
-      date(.data$datetime) != ymd("2019-11-04")   # outlier high demand
+      date(.data$datetime) != ymd("2019-12-04")   # outlier high demand
     )
 }
 #' Adjust yday for leap years
