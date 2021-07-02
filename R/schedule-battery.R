@@ -29,12 +29,12 @@
 #' @importFrom rlang .data
 schedule_battery <- function(data) {
   fill_missing_periods <- function(x) {
-    missing_periods <- c(1:1441)[!(1:1441 %in% colnames(x))]
+    missing_periods <- c(1:1440)[!(1:1440 %in% colnames(x))]
     missing_periods <- as.character(missing_periods)
     x_na <- matrix(NA, nrow = nrow(x), ncol = length(missing_periods),
            dimnames = list(rownames(x), missing_periods))
     x <- cbind(x, x_na)
-    x <- x[,as.character(1:1441)]
+    x <- x[,as.character(1:1440)]
     x
   }
   
@@ -58,7 +58,7 @@ schedule_battery <- function(data) {
     column_to_rownames("date") %>% 
     as.matrix() %>% 
     fill_missing_periods()
-  B <- C <- matrix(0, nrow = 7, ncol = 1441, dimnames = dimnames(P))
+  B <- C <- matrix(0, nrow = 7, ncol = 1440, dimnames = dimnames(P))
   # FIXME: hard coded schedule index
   c_idx <- 2:1202  # charging period indices
   for (iD in as.character(date_list)) {
@@ -114,8 +114,8 @@ schedule_battery <- function(data) {
   }
   
   # fill remaining values
-  B[,1203:1441] <- 0
-  C[,1262:1441] <- C[,1203]
+  B[,1203:1440] <- 0
+  C[,1262:1440] <- C[,1203]
   
   # round due to numeric precision issues
   C <- round(C,8)
