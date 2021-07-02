@@ -96,7 +96,7 @@ schedule_battery <- function(data) {
   # TODO: Also add tests to make sure constraints aren't violated should
   # non-convex profile be predicted.
   # FIXME: hard coded schedule index
-  d_idx <- 902:1441  # discharge period indices
+  d_idx <- 902:1440  # discharge period indices
   for (iD in as.character(date_list)) {
     # Subtracts 6 MWh from peak giving flat profile over d_idx periods
     new_peak_mw <- (sum(L[iD,d_idx]) - 12)/length(d_idx)
