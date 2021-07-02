@@ -98,7 +98,7 @@ load_pv_data <- function() {
     add_lags(
       lags = list(
         "pv_power_mw" = 1441*7,
-        "temp_location3" = 1:6
+        "temp_location3" = 1
         #"temp_location4" = 1:6,
        # "temp_location5" = 1:6,
         #"temp_location6" = 1:6,
@@ -165,3 +165,4 @@ yday_ly_adj <- function(x) {
   x[x_ly & x > 60] <- x[x_ly & x > 60] - 1  # > 29 Feb
   x
 }
+
