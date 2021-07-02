@@ -15,41 +15,48 @@ files <- c("demand", "weather", "pv") %>%
   map(~ files[grep(., files)])
 
 demand_df <- read_csv(
-  file.path(path, files$demand))
-  demand_df$datetime <- as.Date(demand_df$datetime)
+  file.path(path, files$demand),
   col_types = cols(
     datetime = col_datetime(),
     demand_MW = col_double()
   )
- 
-  #rename(
-    #demand_mw = demand_MW
-  #)
+) %>% 
+  rename(
+    demand_mw = demand_MW
+  )
 
 weather_df <- read_csv(
-  file.path(path, files$weather))
-  weather_df$datetime <- as.Date(weather_df$datetime)
+  file.path(path, files$weather),
   col_types = cols(
     datetime = col_datetime(),
     temp_location3 = col_double(),
-    humidity = col_double())
- 
-  
- 
-  #select(datetime, 
-        # matches(paste0("[", paste0(locations, collapse=""), "]{1}$")))
+    humidity = col_double()
+  )
+) %>% 
+  select(datetime, 
+         matches(paste0("[", paste0(locations, collapse=""), "]{1}$")))
+
+
 
 pv_df <- read_csv(
-  file.path(path, files$pv))
-  pv_df$datetime <- as.Date(pv_df$datetime)
+  file.path(path, files$pv),
   col_types = cols(
     datetime = col_datetime(format = ""),
     `irradiance_Wm-2` = col_double(),
     pv_power_mw = col_double(),
-    panel_temp_C = col_double())
- 
+    panel_temp_C = col_double()
+  )
+) %>% 
+  rename(
+    irradiance_wm2 = `irradiance_Wm-2`,
+    panel_temp_c = panel_temp_C
+  )
 
 if (!inc_pv_cond) pv_df <- select(pv_df, datetime, pv_power_mw)
+ 
+  
+
+
 
 
 
