@@ -125,10 +125,8 @@ load_demand_data <- function() {
     select(-.data$pv_power_mw) %>% 
     add_lags(
       lags = list(
-        "demand_mw" = 1440*7,
-        "temp_location3" = c(1,2),
-        "pv_power_mw" = 1440*7
-      )
+        "temp_location3" = c(1,2,3),
+        "pv_power_mw" = 1440*7)
     ) %>% 
    add_features() %>% 
     mutate(
