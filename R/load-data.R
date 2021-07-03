@@ -101,15 +101,7 @@ load_pv_data <- function() {
       lags = list(
         "pv_power_mw" = 1440*7,
         "temp_location3" = 1
-        #"temp_location4" = 1:6,
-       # "temp_location5" = 1:6,
-        #"temp_location6" = 1:6,
-        #"solar_location1" = 1:6,
-        #"solar_location2" = 1:6,
-       # "solar_location3" = 1:6,
-       # "solar_location4" = 1:6,
-       # "solar_location5" = 1:6,
-       # "solar_location6" = 1:6
+        
       )
     ) %>% 
     mutate(period = hh_to_period(.data$datetime),
