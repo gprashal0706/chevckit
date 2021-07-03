@@ -32,9 +32,9 @@ weather_df <- read_csv(
     temp_location3 = col_double(),
     humidity = col_double()
   )
-) %>% 
-  select(datetime, 
-         matches(paste0("[", paste0(locations, collapse=""), "]{1}$")))
+) 
+#select(datetime, 
+        # matches(paste0("[", paste0(locations, collapse=""), "]{1}$")))
 
 
 
