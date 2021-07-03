@@ -26,11 +26,11 @@ add_lags <- function(data, lags = NULL) {
   }
   
   # Tidy output
-  #data <- data %>% 
-   # bind_cols(lag_list) %>% 
-    #select(.data$datetime, sort(peek_vars()))
+ data <- data %>% 
+   bind_cols(lag_list) %>% 
+    select(.data$datetime, sort(peek_vars()))
   
-  #data
+  data
 }
 
 
@@ -49,6 +49,8 @@ add_lags <- function(data, lags = NULL) {
 #' @importFrom tidyr pivot_longer
 #' @importFrom rlang .data
 
+
+  # Calculate yesterday's max, min, mean temperatures
 add_features <- function(data) {
   data <- data %>% 
     mutate(date = date(.data$datetime))
@@ -112,8 +114,8 @@ load_pv_data <- function() {
     ) %>% 
     mutate(period = hh_to_period(.data$datetime),
            month = month(.data$datetime),
-           yday = yday_ly_adj(.data$datetime)) %>% 
-    slice(-c(1:(1440*7)))  # removes first 7 days missing week-lagged PV data
+           yday = yday_ly_adj(.data$datetime))  
+   # slice(-c(1:(1440*7)))  # removes first 7 days missing week-lagged PV data
 }
 
 #' Load demand data
@@ -135,22 +137,21 @@ load_demand_data <- function() {
         "pv_power_mw" = 1440*7
       )
     ) %>% 
-    add_features() %>% 
+   add_features() %>% 
     mutate(
-      # lockdown = if_else(between(date(datetime), ymd("2020-03-23"),
-      #                            ymd("2020-06-23")), 1, 0),
-      period = hh_to_period(.data$datetime),
+    period = hh_to_period(.data$datetime),
       yday = yday_ly_adj(.data$datetime),
-      wday = wday(.data$datetime, week_start = 1)  # 1 = Monday
-    ) %>%  
-    slice(-c(1:(1440*7))) %>%  # removes first 7 days missing week-lagged demand data
-    filter(
-      .data$period %in% 902:1202,  # FIXME: Hard coded. Train with charging periods only
-      date(.data$datetime) != ymd("2019-05-08"),  # outlier 0 demand
-      date(.data$datetime) != ymd("2019-05-10"),  # outlier high demand
-      date(.data$datetime) != ymd("2019-12-04")   # outlier high demand
-    )
+      wday = wday(.data$datetime, week_start = 1) ) # 1 = Monday
 }
+  
+   # slice(-c(1:(1440*7))) %>%  # removes first 7 days missing week-lagged demand data
+   # filter(
+    #  .data$period %in% 902:1202,  # FIXME: Hard coded. Train with charging periods only
+     # date(.data$datetime) != ymd("2019-05-08"),  # outlier 0 demand
+     # date(.data$datetime) != ymd("2019-05-10"),  # outlier high demand
+     # date(.data$datetime) != ymd("2019-12-04")   # outlier high demand
+   # )
+#}
 #' Adjust yday for leap years
 #' 
 #' Adjusts yday values for leap years. 29 February is now assigned 59.5 and following dates are assigned their original yday minus 1. This ensures yday values are consistent with dates across all years.
