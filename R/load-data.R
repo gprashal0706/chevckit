@@ -26,11 +26,11 @@ add_lags <- function(data, lags = NULL) {
   }
   
   # Tidy output
- #data <- data %>% 
-   #bind_cols(lag_list) %>% 
-    #select(.data$datetime, sort(peek_vars()))
+ data <- data %>% 
+   bind_cols(lag_list) %>% 
+    select(.data$datetime, sort(peek_vars()))
   
-  #data
+  data
 }
 
 
