@@ -109,21 +109,7 @@ load_pv_data <- function() {
            yday = yday_ly_adj(.data$datetime))  
   # slice(-c(1:(1440*7)))  # removes first 7 days missing week-lagged PV data
 }
-load_pv_data <- function() {
-  podEnergyComp::pod %>% 
-    select(-.data$demand_mw) %>% 
-    add_lags(
-      lags = list(
-        "pv_power_mw" = 1440*7,
-        "temp_location3" = 1
-            )
-    ) %>% 
-    mutate(period = hh_to_period(.data$datetime)
-          
-           month = month(.data$datetime),
-           yday = yday_ly_adj(.data$datetime))  }
-   # slice(-c(1:(1440*7)))  # removes first 7 days missing week-lagged PV data
-#}
+
 
 #' Load demand data
 #'
