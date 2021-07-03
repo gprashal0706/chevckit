@@ -54,12 +54,6 @@ pv_df <- read_csv(
 
 if (!inc_pv_cond) pv_df <- select(pv_df, datetime, pv_power_mw)
  
-  
-
-
-
-
-
 pod <- demand_df %>% 
   full_join(pv_df, by = "datetime") %>% 
   full_join(weather_df, by = "datetime") %>% 
