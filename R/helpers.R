@@ -7,5 +7,5 @@
 #' 
 #' @importFrom lubridate hour minute
 hh_to_period <- function(x) {
-  hour(x)*60 + minute(x)/1 + 1
+  hour(x)*2 + minute(x)/30 + 1
 }
