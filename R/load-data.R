@@ -100,7 +100,7 @@ load_pv_data <- function() {
     add_lags(
       lags = list(
         "pv_power_mw" = 1440*7,
-        #"temp_location3" = 1
+        "temp_location3" = 1
        
       )
     ) %>% 
