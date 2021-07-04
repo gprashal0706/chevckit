@@ -17,7 +17,7 @@ following code.
 
 ``` r
 install.packages("devtools")
-devtools::install_github("gprashal/chevckit")
+devtools::install_github("gprashal0706/chevckit")
 ```
 
 ## Tuning demand and PV models
