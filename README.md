@@ -17,7 +17,7 @@ following code.
 
 ``` r
 install.packages("devtools")
-devtools::install_github("camroach87/pod-energy-comp")
+devtools::install_github("gprashal/chevckit")
 ```
 
 ## Tuning demand and PV models
@@ -32,9 +32,10 @@ Here is an example of how I produced the forecasts for the final round
 of the competition.
 
 ``` r
-library(podenergycompdenmark)
+library(podEnergyComp)
 library(tidyverse)
 library(lubridate)
+library(tidyselect)
 
 fcst_start_date <- ymd("2019-12-26")
 
